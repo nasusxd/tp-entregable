@@ -17,10 +17,10 @@ class pasajero{
       public function getpasajeros(){
        return $this->pasajeros;
       }
-      public function setpasajeros($pasajero){
-        $this->pasajeros=$pasajero;
+      public function setpasajeros($pasajeros){
+        $this->pasajeros=$pasajeros;
       }
-
+      //se ingresa otro pasajero al vuelo
       public function otroPasajero($nombre,$apellido,$documento,$numero){
         $pasajeros=$this->getpasajeros();
         $posicion=count($pasajeros);
@@ -29,6 +29,37 @@ class pasajero{
         $pasajeros[$posicion]["documento"]=$documento;
         $pasajeros[$posicion]["telefono"]=$numero;
         $this->setpasajeros($pasajeros);
+      }
+      //retorna el los datos de un pasajero segun su documento sino esta retorna un false
+      public function verDatosPasajero($documento){
+        $pasajeros = $this->getpasajeros();
+        $cantPasajeros=count($pasajeros);
+        for($i=0;$i<$cantPasajeros;$i++ ){
+            if($pasajeros[$i]["documento"]==$documento){
+                $datosCompleto= $pasajeros[$i]["nombre"] ." ".$pasajeros[$i]["apellido"]." dni: ".$pasajeros[$i]["documento"]." numero de telefono: ".$pasajeros[$i]["telefono"];
+                $i=$cantPasajeros +10000;
+            }else{
+                $datosCompleto=false;
+            }
+        }
+        return $datosCompleto;
+
+      }
+      //se compueba si el pasajero esta en el vuelo
+
+      public function estaPasajero($documento){
+        $pasajeros= $this->getpasajeros();
+        $cantPasajeros=count($pasajeros);
+
+        for($i=0;$i<$cantPasajeros;$i++ ){
+            if($pasajeros[$i]["documento"]==$documento){
+                $esta=true;
+                $i=$cantPasajeros +10000;
+            }else{
+                $esta=false;
+            }
+        }
+        return $esta;
       }
     
 }

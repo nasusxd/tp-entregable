@@ -61,17 +61,18 @@ class viaje{
     
 
     public function __tostring(){
-        return "codigo de vuelo: ". $this->getcodigo_vuelo()."\ndestino del viaje: ".$this->getdestino()."\ncantidad maxima de pasajeros: ". $this->getcant_maxima() ;
+        return "codigo de vuelo: ". $this->getcodigo_vuelo()."\ndestino del viaje: ".$this->getdestino()."\ncantidad maxima de pasajeros: ". $this->getcant_maxima().$this->mostrar_lista();
     }
     //muestra la lista de pasajeros
     public function mostrar_lista(){
         $pasajeros = $this->getpasajeros();
         $cantPasajeros=count($pasajeros);
-        echo "\nlista de pasajeros: \n";
+        $cadena =" ";
         for($i=0;$i<$cantPasajeros;$i++ ){
             $datosCompleto= $pasajeros[$i]["nombre"] ." ".$pasajeros[$i]["apellido"]." dni: ".$pasajeros[$i]["documento"]." numero de telefono: ".$pasajeros[$i]["telefono"];
-            echo $datosCompleto."\n";
+            $cadena= $cadena." \n".$datosCompleto;
         }
+        return $cadena;
     }
 }
 
