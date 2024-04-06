@@ -18,30 +18,60 @@ Implementar las operaciones que permiten modificar el nombre, apellido y teléfo
 operación que agrega los pasajeros al viaje, solicitando por consola la información de los mismos. Se debe verificar que el pasajero 
 no este cargado mas de una vez en el viaje. De la misma forma cargue la información del responsable del viaje.*/ 
 class viaje{
-    private $codigo_viaje;
+    private $codigo_vuelo;
     private $destino;
     private $cant_maxima;
-    private $pasajero
+    private $pasajeros;
 
-    public function __construct($cod,$dest,$cant,){
-        $this->codigo_viaje=$cod;
+    public function __construct($cod,$dest,$cant,$coleccionPasajeros){
+        $this->codigo_vuelo=$cod;
         $this->destino= $dest;
         $this->cant_maxima= $cant;
-        $this->pasajero=$objPasajero;
+        $this->pasajeros=$coleccionPasajeros;
     }
 
     //gets
-    public function getcodigo_viaje(){
-        return $this->codigo_viaje;
+    public function getcodigo_vuelo(){
+        return $this->codigo_vuelo;
     }
     public function getdestino(){
         return $this->destino;
     }
     public function getcant_maxima(){
-        return $this->cant_maxima
+        return $this->cant_maxima;
     }
-    public function getpasajero(){
-        $this->pasajero;
+    public function getpasajeros(){
+        return $this->pasajeros;
     }
 
+    //sets
+
+    public function setcodigo_vuelo($cod){
+         $this->codigo_vuelo =$cod ;
+    }
+    public function setdestino($dest){
+        $this->destino =$dest ;
+    }
+    public function setcant_maxima($cant){
+        $this->cant_maxima =$cant;
+    }
+    public function setpasajeros($coleccionPasajeros){
+        $this->pasajeros = $coleccionPasajeros ;
+    }
+    
+
+    public function __tostring(){
+        return "codigo de vuelo: ". $this->getcodigo_vuelo()."\ndestino del viaje: ".$this->getdestino()."\ncantidad maxima de pasajeros: ". $this->getcant_maxima() ;
+    }
+    //muestra la lista de pasajeros
+    public function mostrar_lista(){
+        $pasajeros = $this->getpasajeros();
+        $cantPasajeros=count($pasajeros);
+        echo "\nlista de pasajeros: \n";
+        for($i=0;$i<$cantPasajeros;$i++ ){
+            $datosCompleto= $pasajeros[$i]["nombre"] ." ".$pasajeros[$i]["apellido"]." dni: ".$pasajeros[$i]["documento"]." numero de telefono: ".$pasajeros[$i]["telefono"];
+            echo $datosCompleto."\n";
+        }
+    }
 }
+
