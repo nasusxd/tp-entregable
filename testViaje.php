@@ -135,18 +135,15 @@ switch ($opcion){
     
     case 7:
         echo "ingrese nuevo numero de empleado: ";
-        $numLicencia=trim(fgets(STDIN));
+        $numEmpleado=trim(fgets(STDIN));
         echo "ingrese nuevo numero de licencia: ";
         $numLicencia=trim(fgets(STDIN));
         echo "ingrese nuevo nombre: ";
-        $nombre=trim(fgets(STDIN));
+        $nomEmpleado=trim(fgets(STDIN));
         echo "ingrese nuevo apellido: ";
-        $apellido=trim(fgets(STDIN));
-        $objResponsable->setnumeroLicencia($numLicencia);
-        $objResponsable->setnumeroEmpleado($numEmpleado);
-        $objResponsable->setnombreResponsable($nombre);
-        $objResponsable->setapellidoResponsable($apellido);
-       
+        $apeEmpleado=trim(fgets(STDIN));
+        $objResponsable= new responsableV($numEmpleado,$numLicencia,$nomEmpleado,$apeEmpleado);
+       $objviaje->setresponsable($objResponsable);
 
     break; 
 

@@ -40,7 +40,7 @@ class responsableV{
     }
 
     public function __tostring(){
-        return "\nNumero de empleado: ".$this->getnumeroEmpleado(). "\nNumero de licencia: ". $this->getnumeroLicencia(). "\nNombre y apellido del responble: ". $this->getnombreResponsable()." ".$this->getapellidoResponsable();
+        return "\nNumero de empleado: ".$this->getnumeroEmpleado(). "\nNumero de licencia: ". $this->getnumeroLicencia(). "\nNombre y apellido del responsable: ". $this->getnombreResponsable()." ".$this->getapellidoResponsable();
     }
 
    
