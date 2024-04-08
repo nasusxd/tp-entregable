@@ -22,12 +22,15 @@ class viaje{
     private $destino;
     private $cant_maxima;
     private $pasajeros;
+    private $responsable;
+    
 
-    public function __construct($cod,$dest,$cant,$coleccionPasajeros){
+    public function __construct($cod,$dest,$cant,$coleccionPasajeros,$objResponsable){
         $this->codigo_vuelo=$cod;
         $this->destino= $dest;
         $this->cant_maxima= $cant;
         $this->pasajeros=$coleccionPasajeros;
+        $this->responsable= $objResponsable;
     }
 
     //gets
@@ -43,25 +46,31 @@ class viaje{
     public function getpasajeros(){
         return $this->pasajeros;
     }
+    public function getresponsable(){
+        return $this->responsable;
+    }
 
     //sets
 
-    public function setcodigo_vuelo($cod){
-         $this->codigo_vuelo =$cod ;
+    public function setcodigo_vuelo($codigo){
+         $this->codigo_vuelo =$codigo ;
     }
-    public function setdestino($dest){
-        $this->destino =$dest ;
+    public function setdestino($destino){
+        $this->destino =$destino ;
     }
-    public function setcant_maxima($cant){
-        $this->cant_maxima =$cant;
+    public function setcant_maxima($maximo){
+        $this->cant_maxima =$maximo;
     }
     public function setpasajeros($coleccionPasajeros){
         $this->pasajeros = $coleccionPasajeros ;
     }
+    public function setresponsable($objResponsable){
+        $this->responsable=$objResponsable;
+    }
     
 
     public function __tostring(){
-        return "codigo de vuelo: ". $this->getcodigo_vuelo()."\ndestino del viaje: ".$this->getdestino()."\ncantidad maxima de pasajeros: ". $this->getcant_maxima().$this->mostrar_lista();
+        return "\ncodigo de vuelo: ". $this->getcodigo_vuelo()."\n\ndestino del viaje: ".$this->getdestino()."\ncantidad maxima de pasajeros: ". $this->getcant_maxima()."\nlista de pasajeros".$this->mostrar_lista()."\n Datos del resposable: ".$this->getresponsable();
     }
     //muestra la lista de pasajeros
     public function mostrar_lista(){

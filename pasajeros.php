@@ -61,5 +61,22 @@ class pasajero{
         }
         return $esta;
       }
+
+      //cambia los datos de un pasajero que esta en la lista
+      public function cambiarDatosPasajero($nombre,$apellido,$nuevoDocumento,$numero,$documento){
+        $pasajeros = $this->getpasajeros();
+        $cantPasajeros=count($pasajeros);
+        for($i=0;$i<$cantPasajeros;$i++ ){
+            if($pasajeros[$i]["documento"]==$documento){
+              $posicion=$i;
+              $pasajeros[$posicion]["nombre"]=$nombre;
+              $pasajeros[$posicion]["apellido"]=$apellido;
+              $pasajeros[$posicion]["documento"]=$nuevoDocumento;
+              $pasajeros[$posicion]["telefono"]=$numero;
+                $i=$cantPasajeros +10000;
+            }
+          }
+          $this->setpasajeros($pasajeros);
+      }
     
 }

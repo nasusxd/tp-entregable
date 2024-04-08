@@ -1,6 +1,7 @@
 <?php
 include_once ("viaje.php");
 include_once("pasajeros.php");
+include_once("responsableV.php");
 
 //funcion
 function seleccionarOpcion(){
@@ -39,11 +40,12 @@ echo "ingrese el destino: ";
 $destino=trim(fgets(STDIN));
 echo "ingrese la cant. maxima de pasajeros: ";
 $maximo=trim(fgets(STDIN));
+
 //datos del responsable
 echo "ingrese numero de empleado del responsable de vuelo: ";
 $numEmpleado=trim(fgets(STDIN));
-echo"ingrese el numero de licensia del mismo: ";
-$numLicensia=trim(fgets(STDIN));
+echo"ingrese el numero de licencia del mismo: ";
+$numLicencia=trim(fgets(STDIN));
 echo "ingrese el nombre del empleado: ";
 $nomEmpleado=trim(fgets(STDIN));
 echo "ingrese el apellido del empleado: ";
@@ -52,7 +54,9 @@ $apeEmpleado=trim(fgets(STDIN));
 //objetos
 $objPasajeros= new pasajero();
 $pasajeros= $objPasajeros->getpasajeros();
-$objviaje= new viaje($codigo,$destino,$maximo,$pasajeros);
+$objResponsable= new responsableV($numEmpleado,$numLicencia,$nomEmpleado,$apeEmpleado);
+$objviaje= new viaje($codigo,$destino,$maximo,$pasajeros,$objResponsable);
+
 do{
 $opcion = seleccionarOpcion();
 switch ($opcion){
@@ -66,22 +70,28 @@ switch ($opcion){
     break;   
 
     case 3:
+        $cantPasajeros= count($objPasajeros->getPasajeros());
+        $cantPermitidos=$objviaje->getcant_maxima();
+        if($cantPasajeros<$cantPermitidos){         //compruebo si en la lista hay lugar
         echo "ingrese el documento: ";
         $documento = trim(fgets(STDIN));
         $esta=$objPasajeros->estaPasajero($documento);
         if($esta){
             echo"el pasajero ya esta dentro del vuelo, debido a que el documento ya esta asociado a uno";
-        }else{
+        } else{
            echo "ingrese el nombre: ";
-        $nombre= trim(fgets(STDIN));
-        echo "ingrese el apellido: ";
-        $apellido= trim(fgets(STDIN));
-        echo "ingrese el telefono: ";
-        $numero= trim(fgets(STDIN));
-        $objPasajeros->otroPasajero($nombre,$apellido,$documento,$numero);
-        $objviaje->setpasajeros($objPasajeros->getpasajeros());
+           $nombre= trim(fgets(STDIN));
+           echo "ingrese el apellido: ";
+           $apellido= trim(fgets(STDIN));
+           echo "ingrese el telefono: ";
+           $numero= trim(fgets(STDIN));
+           $objPasajeros->otroPasajero($nombre,$apellido,$documento,$numero);
+           $objviaje->setpasajeros($objPasajeros->getpasajeros());
+           }
+        }else{
+            echo"\n!!La lista de vuelo ya esta llena¡¡\n";
         }
-
+    
     break;  
 
     
@@ -98,18 +108,59 @@ switch ($opcion){
     break;  
 
     case 5:
+        echo "ingrese el documento del pasajero: ";
+        $documento=trim(fgets(STDIN));
+        $datos=$objPasajeros->verDatosPasajero($documento);
+        if($datos==false){
+            echo "el pasajero no esta en este vuelo";
+        }else{
+            echo 
+            "ingrese el nombre: ";
+            $nombre=trim(fgets(STDIN));
+            "ingrese el apellido: ";
+            $apellido=trim(fgets(STDIN));
+            "ingrese el numero de telefono: ";
+            $numero=trim(fgets(STDIN));
+            "ingrese el documento: ";
+            $nuevoDocumento=trim(fgets(STDIN));
+            $objPasajeros->cambiarDatosPasajero($nombre,$apellido,$nuevoDocumento,$numero,$documento);
+            $objviaje->setpasajeros($objPasajeros->getpasajeros());
+        }
 
     break;  
 
     case 6:
-
+        echo $objResponsable;
     break; 
     
     case 7:
+        echo "ingrese nuevo numero de empleado: ";
+        $numLicencia=trim(fgets(STDIN));
+        echo "ingrese nuevo numero de licencia: ";
+        $numLicencia=trim(fgets(STDIN));
+        echo "ingrese nuevo nombre: ";
+        $nombre=trim(fgets(STDIN));
+        echo "ingrese nuevo apellido: ";
+        $apellido=trim(fgets(STDIN));
+        $objResponsable->setnumeroLicencia($numLicencia);
+        $objResponsable->setnumeroEmpleado($numEmpleado);
+        $objResponsable->setnombreResponsable($nombre);
+        $objResponsable->setapellidoResponsable($apellido);
+       
 
     break; 
 
     case 8:
+        echo "ingrese nuevo codigo de vuelo: ";
+        $codigo=trim(fgets(STDIN));
+        echo "ingrese nuevo destino: ";
+        $destino=trim(fgets(STDIN));
+        echo "ingrese nueva cant. maxima de pasajeros: ";
+        $maximo=trim(fgets(STDIN));
+
+        $objviaje->setcodigo_vuelo($codigo);
+        $objviaje->setdestino($destino);
+        $objviaje->setcant_maxima($maximo);
 
     break;
 }
